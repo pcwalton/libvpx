@@ -8,6 +8,6 @@ build = "build.rs"
 
 [lib]
 
-name = "libvpx-sys"
+name = "libvpx_sys"
 path = "lib.rs"
 
