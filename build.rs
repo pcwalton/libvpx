@@ -8,8 +8,8 @@ use std::env;
 
 fn main() {
     let src_dir = env::current_dir().unwrap();
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
     if cfg!(windows) {
-        let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
         env::set_var("OUT_DIR", msys_compatible(&out_dir));
     }
     let jobs = format!("-j{}", env::var("NUM_JOBS").unwrap());
@@ -18,6 +18,7 @@ fn main() {
         .status()
         .unwrap();
     assert!(make_result.success());
+    println!("cargo:rustc-flags=-L native={}", out_dir.to_str().unwrap());
 }
 
 // Function taken from
